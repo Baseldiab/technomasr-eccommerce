@@ -7,7 +7,7 @@ export default function Navbar() {
     <nav className="  py-6 bg-[#F3F3F3]">
       <div className="container flex justify-between items-center">
         <Link to={"/"}>
-          <img src="../../../public/images/logo.png" className="md:w-36 md:h-auto" alt="" />
+          <img src="/images/logo.png" className="md:w-36 md:h-auto" alt="" />
         </Link>
 
         <div>

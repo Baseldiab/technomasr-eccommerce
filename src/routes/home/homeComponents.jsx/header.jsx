@@ -51,7 +51,7 @@ export default function Header() {
               className="md:!h-[70vh] !h-[80vh]"
               style={{
                 // height: "70vh",
-                backgroundImage: "url(../../../../public/images/header-1.jpg)",
+                backgroundImage: "url(/images/header-1.jpg)",
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }}

@@ -10,7 +10,7 @@ export default function Footer() {
     <footer>
       <div className="container flex justify-center flex-col items-center py-10">
         <Link to={"/"} className="my-2">
-          <img src="../../../public/images/logo.png" className="md:w-52 md:h-auto" alt="" />
+          <img src="/images/logo.png" className="md:w-52 md:h-auto" alt="" />
         </Link>
         <a className="text-primary text-xl font-medium my-2" href="mailto:example@example.com">
           <MailOutlineIcon className="me-2" />
