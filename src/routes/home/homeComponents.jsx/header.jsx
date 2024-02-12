@@ -7,6 +7,8 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Parallax, Pagination, Navigation } from "swiper/modules";
+import PrimaryButton from "../../../components/buttons/primaryButton";
+import { useEffect, useState } from "react";
 
 const slides = [
   {
@@ -27,6 +29,18 @@ const slides = [
 ];
 
 export default function Header() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768); // Assuming sm is 768px
+    };
+
+    handleResize(); // Initial check
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <>
       <Swiper
@@ -40,7 +54,7 @@ export default function Header() {
         pagination={{
           clickable: true,
         }}
-        navigation={true}
+        navigation={!isMobile}
         modules={[Parallax, Pagination, Navigation]}
         className="mySwiper"
       >
@@ -48,7 +62,7 @@ export default function Header() {
           return (
             <SwiperSlide
               key={item.id}
-              className="md:!h-[70vh] !h-[80vh]"
+              className="md:!h-[80vh] !h-[80vh]"
               style={{
                 // height: "70vh",
                 backgroundImage: "url(/images/header-1.jpg)",
@@ -58,13 +72,19 @@ export default function Header() {
             >
               <div className="absolute left-[7%] top-1/2 transform -translate-y-1/2">
                 <h1
-                  className="subtitle font-bold text-2xl text-white my-1"
+                  className="font-sans subtitle font-bold sm:text-2xl text-xl text-white m-0 p-0"
                   data-swiper-parallax="-200"
                 >
                   {item.header}
                 </h1>
-                <div className="text-xl  max-w-[400px]  leading-[1.3] " data-swiper-parallax="-100">
-                  <p className="text-white">{item.text}</p>
+                <div
+                  className="sm:text-xl text-lg  max-w-[400px]  leading-[1.3]  my-3"
+                  data-swiper-parallax="-100"
+                >
+                  <p className="font-sans text-white m-0">{item.text}</p>
+                </div>
+                <div>
+                  <PrimaryButton text={"Shop Now"} />
                 </div>
               </div>
             </SwiperSlide>

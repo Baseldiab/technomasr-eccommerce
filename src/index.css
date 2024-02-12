@@ -11,6 +11,10 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.active-link {
+  @apply !border-b-sky-700 border-b-2  !text-sky-700;
+}
 /* 
 body {
   margin: 0;

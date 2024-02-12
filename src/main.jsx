@@ -6,14 +6,8 @@ import App from "./App";
 import CartPage from "./routes/cart/cartPage";
 import WishPage from "./routes/wish/wishPage";
 import HomePage from "./routes/home/homePage";
-
-// import Home from "./Home-page/Home";
-// import { ContextProvider } from "./Auth/Auth.js";
-// import Login from "./loginPage/Login.tsx";
-// import Register from "./RegisterPage/Register.tsx";
-// import Profile from "./profilePage/Profile.tsx";
-// import RequireAuth from "./Require-Auth/Require-auth.tsx";
-// import RequireLogin from "./Require-Auth/Require-login.tsx";
+import { Provider } from "react-redux";
+import { store } from "./store/store";
 
 const router = createBrowserRouter([
   {
@@ -66,8 +60,10 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
-    {/* <ContextProvider> */}
-    <RouterProvider router={router} />
-    {/* </ContextProvider> */}
+    <Provider store={store}>
+      {/* <ContextProvider> */}
+      <RouterProvider router={router} />
+      {/* </ContextProvider> */}
+    </Provider>
   </React.StrictMode>
 );
