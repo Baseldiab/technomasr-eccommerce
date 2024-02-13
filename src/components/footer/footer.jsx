@@ -8,7 +8,7 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 export default function Footer() {
   return (
     <footer>
-      <div className="container flex justify-center flex-col items-center py-10">
+      <div className="container flex justify-center flex-col items-center md:py-10 py-5">
         <Link to={"/"} className="my-2">
           <img src="/images/logo.png" className="md:w-52 md:h-auto" alt="" />
         </Link>

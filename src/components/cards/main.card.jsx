@@ -52,14 +52,14 @@ export default function MainCard(props) {
             alt={props.title}
           />
         </Link>
-        <Button
-          variant="contained"
-          className={"!absolute top-5 right-5 !bg-white !text-black !p-2 !rounded-xl !min-w-[50px]"}
-          onClick={() => dispatch(addToWish(props))}
-        >
-          <FavoriteBorderIcon />
-        </Button>
       </div>
+      <Button
+        variant="contained"
+        className={"!absolute top-5 right-5 !bg-white !text-black !p-2 !rounded-xl !min-w-[50px]"}
+        onClick={() => dispatch(addToWish(props))}
+      >
+        <FavoriteBorderIcon />
+      </Button>
       <div className="card_content min-h-[160px]">
         <div className="card_body text-start px-5 py-2 mx-auto">
           <Link className="text-light" to={`/products/productId=${props.id}`}>

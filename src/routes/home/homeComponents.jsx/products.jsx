@@ -48,7 +48,7 @@ export default function Products() {
   };
 
   return (
-    <section className="my-16">
+    <section className="md:py-16 py-10 shadow-md">
       <div className="container gap-5 grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-col-1">
         {products.slice(0, 8).map((product) => {
           return (
