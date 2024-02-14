@@ -5,9 +5,9 @@ export default function CartLocation() {
   //   const navigate = useNavigate();
 
   const initialConfirm = localStorage.getItem("isConfirmed") || false;
+  const initialChecked = localStorage.getItem("isCheckedOut");
 
   const [isConfirm, set_is_confirmed] = useState(initialConfirm);
-  const initialChecked = localStorage.getItem("isCheckedOut");
 
   //   console.log(isConfirm);
 
