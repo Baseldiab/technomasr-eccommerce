@@ -17,6 +17,9 @@ export default {
         primary: "#0B4A72",
         secondary: "#E98316",
       },
+      fontFamily: {
+        pageTitle: ["Dosis", "Helvetica", "Arial", "sans-serif"],
+      },
     },
   },
   plugins: [],

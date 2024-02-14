@@ -7,23 +7,29 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 
 export default function Footer() {
   return (
-    <footer>
+    <footer className="sm:mb-0 mb-[40px]">
       <div className="container flex justify-center flex-col items-center md:py-10 py-5">
         <Link to={"/"} className="my-2">
           <img src="/images/logo.png" className="md:w-52 md:h-auto" alt="" />
         </Link>
-        <a className="text-primary text-xl font-medium my-2" href="mailto:example@example.com">
+        <a className="text-primary text-xl font-medium my-2" href="mailto:Baseldiab21@gmail.com">
           <MailOutlineIcon className="me-2" />
-          example@example.com
+          Baseldiab21@gmail.com
         </a>
-        <a className="text-primary text-xl font-medium my-2" href="tel:+125 699 9171">
+        <a className="text-primary text-xl font-medium my-2" href="tel:201068769643">
           <PhoneInTalkIcon className="me-2" />
-          +125 699 9171
+          +20168769643
         </a>
         <div className="flex justify-between items-center my-2">
-          <XIcon className=" text-primary" />
-          <FacebookIcon className="mx-3 text-primary" />
-          <InstagramIcon className=" text-primary" />
+          <a href="https://twitter.com/">
+            <XIcon className=" text-primary" />
+          </a>
+          <a href="https://www.facebook.com/">
+            <FacebookIcon className="mx-3 text-primary" />
+          </a>
+          <a href="https://www.instagram.com/">
+            <InstagramIcon className=" text-primary" />
+          </a>
         </div>
       </div>
     </footer>
