@@ -16,18 +16,17 @@ export default function CartPage() {
   const dispatch = useDispatch();
   const auth = useAuth();
   const products = useSelector((state) => state.cart) || [];
-  // console.log(products);
+
   const initialChecked = localStorage.getItem("isCheckedOut") || false;
   const initialConfirm = localStorage.getItem("isConfirmed") || false;
 
   const [isCheck, set_is_checked] = useState(initialChecked);
+  const [isConfirm, set_is_Confirm] = useState(initialConfirm);
 
   const totalPrice = products.reduce((acc, product) => {
     acc += product.price * product.quantity;
     return acc;
   }, 0);
-
-  // console.log(totalPrice);
 
   const tax = Number(totalPrice * 0.1);
   const delivery = Number(totalPrice * 0.05);
@@ -44,10 +43,16 @@ export default function CartPage() {
     localStorage.setItem("isCheckedOut", isCheck);
   }, [isCheck]);
 
+  useEffect(() => {
+    localStorage.setItem("isConfirmed", isConfirm);
+  }, [isConfirm]);
+
+  console.log(isCheck, isCheck, auth.user.length !== 0);
+
   return (
     <>
       <PageTitle title={"Cart"} />
-      {auth.user.length !== 0 && initialChecked && initialConfirm ? (
+      {auth.user.length !== 0 && isConfirm && isCheck ? (
         <CartOrder />
       ) : (
         <section className="cart__content md:py-16 py-10 shadow-md">
@@ -109,7 +114,11 @@ export default function CartPage() {
                   }
                 />
               </div>
-              <CartLocation />
+              <CartLocation
+                onClick={() => set_is_Confirm(true)}
+                confirm={isConfirm}
+                checked={isCheck}
+              />
             </>
           )}
         </section>

@@ -1,16 +1,8 @@
+/* eslint-disable react/prop-types */
 import { TextField } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-export default function CartLocation() {
-  //   const navigate = useNavigate();
-
-  const initialConfirm = localStorage.getItem("isConfirmed") || false;
-  const initialChecked = localStorage.getItem("isCheckedOut");
-
-  const [isConfirm, set_is_confirmed] = useState(initialConfirm);
-
-  //   console.log(isConfirm);
-
+export default function CartLocation(props) {
   const [username, setUsername] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [location, setLocation] = useState("");
@@ -37,18 +29,13 @@ export default function CartLocation() {
       return;
     }
 
-    set_is_confirmed(true);
-
     // Proceed with form submission if all fields are valid
     // console.log("Form submitted:", { username, phoneNumber, location });
   };
-  useEffect(() => {
-    localStorage.setItem("isConfirmed", isConfirm);
-  }, [isConfirm]);
 
   return (
     <>
-      {!isConfirm && initialChecked && (
+      {props.confirm == false && props.checked == true && (
         <>
           (
           <section className="">
@@ -99,7 +86,11 @@ export default function CartLocation() {
               </div>
 
               <div className="form__submit-btn my-3">
-                <button className="w-full bg-secondary text-white py-2 px-4 rounded" type="submit">
+                <button
+                  onClick={props.onClick}
+                  className="w-full bg-secondary text-white py-2 px-4 rounded"
+                  type="submit"
+                >
                   Confirm Payment
                 </button>
               </div>
