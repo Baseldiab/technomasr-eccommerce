@@ -1,7 +1,9 @@
 import { Link, useLocation } from "react-router-dom";
+import { useAuth } from "../../Auth";
 
 export default function BottomNavbar() {
   const location = useLocation();
+  const auth = useAuth();
 
   // FUNCTION TO DETERMINE IF A LINK SHOULD BE ACTIVE
   const isLinkActive = (linkPath) => {
@@ -27,14 +29,25 @@ export default function BottomNavbar() {
         >
           products
         </Link>
-        <Link
-          to={"login"}
-          className={` mx-2   text-sm py-1  uppercase font-medium text-primary hover:text-sky-700 ${
-            isLinkActive("/login") ? "active-link" : ""
-          }`}
-        >
-          login
-        </Link>
+
+        {auth.user.length === 0 ? (
+          <Link
+            to={"login"}
+            className={` mx-2   text-sm py-1  uppercase font-medium text-primary hover:text-sky-700 ${
+              isLinkActive("/login") ? "active-link" : ""
+            }`}
+          >
+            login
+          </Link>
+        ) : (
+          <Link
+            to={"#"}
+            className={` mx-2   text-sm py-1  uppercase font-medium text-primary hover:text-sky-700`}
+            onClick={() => auth.logout()}
+          >
+            Logout
+          </Link>
+        )}
       </>
     </nav>
   );
