@@ -27,7 +27,7 @@ export const ContextProvider = ({ children }) => {
     }
   };
   const login = (user) => {
-    console.log(adminInitial());
+    // console.log(adminInitial());
     setUser(user);
     localStorage.setItem("user", user);
   };

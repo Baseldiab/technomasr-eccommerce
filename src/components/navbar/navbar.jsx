@@ -3,9 +3,11 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useAuth } from "../../Auth";
 
 export default function Navbar() {
   const location = useLocation();
+  const auth = useAuth();
 
   const cartProduct = useSelector((state) => state.cart) || [];
 
@@ -52,14 +54,24 @@ export default function Navbar() {
               >
                 products
               </Link>
-              <Link
-                to={"login"}
-                className={`md:mx-3 mx-2  md:text-lg text-sm py-1  uppercase font-medium text-primary hover:text-sky-700 ${
-                  isLinkActive("/login") ? "active-link" : ""
-                }`}
-              >
-                login
-              </Link>
+              {auth.user.length === 0 ? (
+                <Link
+                  to={"login"}
+                  className={`md:mx-3 mx-2  md:text-lg text-sm py-1  uppercase font-medium text-primary hover:text-sky-700 ${
+                    isLinkActive("/login") ? "active-link" : ""
+                  }`}
+                >
+                  login
+                </Link>
+              ) : (
+                <Link
+                  to={"#"}
+                  className={`md:mx-3 mx-2  md:text-lg text-sm py-1  uppercase font-medium text-primary hover:text-sky-700`}
+                  onClick={() => auth.logout()}
+                >
+                  Logout
+                </Link>
+              )}
             </>
           )}
           {/* <Link
