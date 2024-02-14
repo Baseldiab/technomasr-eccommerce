@@ -8,12 +8,15 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import { addToCart } from "../../../store/cart/cart.store";
 import { addToWish } from "../../../store/wish/wish.store";
+import { useAuth } from "../../../Auth";
+import Swal from "sweetalert2";
 
 // Import addToWish action and useAuth hook if necessary
 
 export default function ProductDetailsPage() {
   const isLoading = useSelector((state) => state.home.loading);
   const params = useParams();
+  const auth = useAuth();
   const dispatch = useDispatch();
   const filterParams = params.productId.match(/\d+/g).map(Number);
   const [singleProduct, setSingleProduct] = useState({});
@@ -24,24 +27,66 @@ export default function ProductDetailsPage() {
       .then((data) => setSingleProduct(data));
   }, [filterParams]);
 
+  const mustLogin = () => {
+    Swal.fire({
+      title: "<strong>SIGN IN TO SYNC YOUR SAVED ITEMS ACROSS ALL YOUR DEVICES</strong>",
+      icon: "warning",
+      // timer: 1000,
+      showCloseButton: true,
+      showCancelButton: true,
+      focusConfirm: false,
+      confirmButtonText: "<a class= 'text-light' href='/login' >SIGN IN</a>",
+      confirmButtonAriaLabel: "Thumbs up, great!",
+      cancelButtonText: "CONTINUE SHOPPING",
+      cancelButtonAriaLabel: "Thumbs down",
+    });
+  };
+
   const handleAddToWish = () => {
-    // Define addToWish action and useAuth hook properly
-    // if (auth.user.length) {
-    dispatch(addToWish(singleProduct));
-    // } else {
-    //   Swal.fire({
-    //     title:
-    //       "<strong>SIGN IN TO SYNC YOUR SAVED ITEMS ACROSS ALL YOUR DEVICES</strong>",
-    //     icon: "warning",
-    //     showCloseButton: true,
-    //     showCancelButton: true,
-    //     focusConfirm: false,
-    //     confirmButtonText: "<a class= 'text-light' href='/login' >LOGIN</a>",
-    //     confirmButtonAriaLabel: "Thumbs up, great!",
-    //     cancelButtonText: "CONTINUE SHOPPING",
-    //     cancelButtonAriaLabel: "Thumbs down",
-    //   });
-    // }
+    //     const succesLogin = () => {
+    if (auth.user.length !== 0) {
+      dispatch(addToWish(singleProduct));
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+
+      Toast.fire({
+        icon: "success",
+        title: "successfully Add To Wishlist",
+      });
+    } else mustLogin();
+  };
+  const handleAddToCart = () => {
+    //     const succesLogin = () => {
+    if (auth.user.length !== 0) {
+      dispatch(addToCart(singleProduct));
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+
+      Toast.fire({
+        icon: "success",
+        title: "successfully Add To Cart",
+      });
+    } else {
+      mustLogin();
+    }
   };
 
   return (
@@ -97,7 +142,7 @@ export default function ProductDetailsPage() {
                 <div className="singleProduct__buttons my-4">
                   <button
                     className="main-button add-cart add-cart-singleProduct me-2 my-1 px-4 py-2 bg-blue-500 text-white rounded"
-                    onClick={() => dispatch(addToCart(singleProduct))}
+                    onClick={handleAddToCart}
                   >
                     Add to Cart
                   </button>

@@ -8,13 +8,15 @@ import { useEffect, useState } from "react";
 import CartCard from "./components/cart.card";
 import QuantityInput from "../../components/inputs/quantity.input";
 import CartEmpty from "./components/cart.empty";
+import CartLocation from "./components/cart.location";
 
 export default function CartPage() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.cart) || [];
   // console.log(products);
+  const initialChecked = localStorage.getItem("isCheckedOut") || false;
 
-  const [isCheck, set_is_checked] = useState(true);
+  const [isCheck, set_is_checked] = useState(initialChecked);
 
   const totalPrice = products.reduce((acc, product) => {
     acc += product.price * product.quantity;
@@ -27,7 +29,7 @@ export default function CartPage() {
   const delivery = Number(totalPrice * 0.05);
 
   const handleCheckedOut = () => {
-    set_is_checked(false);
+    set_is_checked(true);
   };
 
   const handleDeleteItem = (itemId) => {
@@ -45,60 +47,63 @@ export default function CartPage() {
         {products.length === 0 ? (
           <CartEmpty />
         ) : (
-          <div className="container grid md:grid-cols-5 grid-cols-1 gap-5  items-start md:gap-8">
-            <div className="col-span-3 ">
-              {products.map((item, index) => {
-                return (
-                  <div
-                    key={index}
-                    className=" border border-gray-400 rounded-md !min-w-[300px] bg-white grid grid-cols-3 justify-between mb-4"
-                  >
-                    <CartCard
-                      id={item.id}
-                      image={item.image}
-                      title={item.title}
-                      price={`${Number(item.price).toFixed(2)} $`}
-                      quantityInput={
-                        <div className="quantity-input">
-                          <input
-                            className="quantity-field !min-w-[20px] !p-0"
-                            type="number"
-                            id="quantity"
-                            name="quantity"
-                            min="1"
-                            value={item.quantity}
-                            onChange={(e) =>
-                              dispatch(
-                                onChangeQuantity({
-                                  productId: item.id,
-                                  qty: e.target.value,
-                                })
-                              )
-                            }
-                            // readOnly
-                          />
-                        </div>
-                      }
-                    />
-                  </div>
-                );
-              })}
+          <>
+            <div className="container grid md:grid-cols-5 grid-cols-1 gap-5  items-start md:gap-8">
+              <div className="col-span-3 ">
+                {products.map((item, index) => {
+                  return (
+                    <div
+                      key={index}
+                      className=" border border-gray-400 rounded-md !min-w-[300px] bg-white grid grid-cols-3 justify-between mb-4"
+                    >
+                      <CartCard
+                        id={item.id}
+                        image={item.image}
+                        title={item.title}
+                        price={`${Number(item.price).toFixed(2)} $`}
+                        quantityInput={
+                          <div className="quantity-input">
+                            <input
+                              className="quantity-field !min-w-[20px] !p-0"
+                              type="number"
+                              id="quantity"
+                              name="quantity"
+                              min="1"
+                              value={item.quantity}
+                              onChange={(e) =>
+                                dispatch(
+                                  onChangeQuantity({
+                                    productId: item.id,
+                                    qty: e.target.value,
+                                  })
+                                )
+                              }
+                              // readOnly
+                            />
+                          </div>
+                        }
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+              {/* CART TOTAL PRICE */}
+              <OrderSummery
+                totalPrice={totalPrice}
+                tax={tax}
+                delivery={delivery}
+                isCheck={!isCheck}
+                checkoutButton={
+                  !isCheck && (
+                    <div className="mt-2 flex justify-center items-center">
+                      <SecondaryButton onClick={handleCheckedOut} text={"Checkout"} />
+                    </div>
+                  )
+                }
+              />
             </div>
-            {/* CART TOTAL PRICE */}
-            <OrderSummery
-              totalPrice={totalPrice}
-              tax={tax}
-              delivery={delivery}
-              isCheck={isCheck}
-              checkoutButton={
-                isCheck && (
-                  <div className="mt-2 flex justify-center items-center">
-                    <SecondaryButton onClick={handleCheckedOut} text={"Checkout"} />
-                  </div>
-                )
-              }
-            />
-          </div>
+            <CartLocation />
+          </>
         )}
       </section>
     </>

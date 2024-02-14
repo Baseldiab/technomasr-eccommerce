@@ -74,13 +74,7 @@ export default function Navbar() {
               )}
             </>
           )}
-          {/* <Link
-          to={"#"}
-            className={`nav-link `}
-                    onClick={() => auth.logout()}
-                  >
-                    Logout
-          </Link> */}
+
           <Link
             to={"wish"}
             className={`md:mx-3 mx-2 py-1 text-primary hover:text-sky-700 ${
@@ -89,9 +83,11 @@ export default function Navbar() {
           >
             <div className="main-nav__badge relative">
               <FavoriteIcon className={` md:!text-3xl !text-2xl  py-1`} />
-              <span className="main-nav__number main-nav__wish-number absolute text-xs top-[-5px] right-[-4px] font-medium">
-                {/* {auth.user.length ? wishProduct.length : 0} */}0
-              </span>
+              {auth.user.length !== 0 && (
+                <span className="main-nav__number main-nav__wish-number absolute text-xs top-[-5px] right-[-4px] font-medium">
+                  {/* {auth.user.length ? wishProduct.length : 0} */}0
+                </span>
+              )}
             </div>
           </Link>
 
@@ -103,9 +99,11 @@ export default function Navbar() {
           >
             <div className="main-nav__badge flex justify-center items-end relative">
               <ShoppingCartIcon className={` md:!text-3xl !text-2xl py-1`} />
-              <span className="main-nav__number main-nav__wish-number text-xs absolute top-[-5px] right-[-4px] font-medium">
-                {cartProduct.length}
-              </span>
+              {auth.user.length !== 0 && (
+                <span className="main-nav__number main-nav__wish-number text-xs absolute top-[-5px] right-[-4px] font-medium">
+                  {cartProduct.length}
+                </span>
+              )}
             </div>
           </Link>
         </div>

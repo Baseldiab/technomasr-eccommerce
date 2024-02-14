@@ -7,50 +7,73 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../../store/cart/cart.store";
 import { addToWish } from "../../store/wish/wish.store";
 import Swal from "sweetalert2";
+import { useAuth } from "../../Auth";
 export default function MainCard(props) {
   const dispatch = useDispatch();
-  //   const auth = useAuth();
+  const auth = useAuth();
+
+  const mustLogin = () => {
+    Swal.fire({
+      title: "<strong>SIGN IN TO SYNC YOUR SAVED ITEMS ACROSS ALL YOUR DEVICES</strong>",
+      icon: "warning",
+      // timer: 1000,
+      showCloseButton: true,
+      showCancelButton: true,
+      focusConfirm: false,
+      confirmButtonText: "<a class= 'text-light' href='/login' >SIGN IN</a>",
+      confirmButtonAriaLabel: "Thumbs up, great!",
+      cancelButtonText: "CONTINUE SHOPPING",
+      cancelButtonAriaLabel: "Thumbs down",
+    });
+  };
 
   const handleAddToWish = () => {
     //     const succesLogin = () => {
-    dispatch(addToWish(props));
-    const Toast = Swal.mixin({
-      toast: true,
-      position: "top-end",
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.addEventListener("mouseenter", Swal.stopTimer);
-        toast.addEventListener("mouseleave", Swal.resumeTimer);
-      },
-    });
+    if (auth.user.length !== 0) {
+      dispatch(addToWish(props));
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
 
-    Toast.fire({
-      icon: "success",
-      title: "successfully Add To Wishlist",
-    });
+      Toast.fire({
+        icon: "success",
+        title: "successfully Add To Wishlist",
+      });
+    } else mustLogin();
   };
   const handleAddToCart = () => {
     //     const succesLogin = () => {
-    dispatch(addToCart(props));
-    const Toast = Swal.mixin({
-      toast: true,
-      position: "top-end",
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.addEventListener("mouseenter", Swal.stopTimer);
-        toast.addEventListener("mouseleave", Swal.resumeTimer);
-      },
-    });
+    if (auth.user.length !== 0) {
+      dispatch(addToCart(props));
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
 
-    Toast.fire({
-      icon: "success",
-      title: "successfully Add To Cart",
-    });
+      Toast.fire({
+        icon: "success",
+        title: "successfully Add To Cart",
+      });
+    } else {
+      mustLogin();
+    }
   };
+
   //   };
 
   return (

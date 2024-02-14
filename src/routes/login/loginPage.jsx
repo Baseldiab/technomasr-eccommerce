@@ -126,7 +126,7 @@ export default function LoginPage() {
           </div>
           {errorMsg && <Alert severity="error">{errorMsg}</Alert>}
           <div className="form__submit-btn">
-            <button className="w-full bg-blue-500 text-white py-2 px-4 rounded" type="submit">
+            <button className="w-full bg-primary text-white py-2 px-4 rounded" type="submit">
               Login
             </button>
           </div>
