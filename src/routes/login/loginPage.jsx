@@ -88,18 +88,6 @@ export default function LoginPage() {
           onSubmit={formatSubmit}
         >
           <div className="mb-3">
-            {/* <label htmlFor="floatingName" className="form__title">
-              Username
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="floatingName"
-              placeholder="Username"
-              onChange={(e) => setName(e.target.value)}
-              value={username}
-              required
-            /> */}
             <TextField
               required
               fullWidth
@@ -117,7 +105,7 @@ export default function LoginPage() {
                 fullWidth
                 required
                 value={password}
-                defaultValue={password}
+                // defaultValue={password}
                 onChange={(e) => setPassword(e.target.value)}
                 id="filled-adornment-password"
                 type={showPassword ? "text" : "password"}

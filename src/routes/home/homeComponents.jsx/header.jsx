@@ -9,6 +9,7 @@ import "swiper/css/navigation";
 import { Parallax, Pagination, Navigation } from "swiper/modules";
 import PrimaryButton from "../../../components/buttons/primaryButton";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const slides = [
   {
@@ -84,7 +85,9 @@ export default function Header() {
                   <p className="font-sans text-white m-0">{item.text}</p>
                 </div>
                 <div>
-                  <PrimaryButton text={"Shop Now"} />
+                  <Link to={"/products"}>
+                    <PrimaryButton text={"Shop Now"} />
+                  </Link>
                 </div>
               </div>
             </SwiperSlide>

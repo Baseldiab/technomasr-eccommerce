@@ -54,7 +54,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/wish",
-        element: <WishPage />,
+        element: (
+          <RequireAuth>
+            <WishPage />,
+          </RequireAuth>
+        ),
       },
 
       {
