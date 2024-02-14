@@ -2426,6 +2426,11 @@ react-dom@^18.2.0:
     loose-envify "^1.1.0"
     scheduler "^0.23.0"
 
+react-inner-image-zoom@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.npmjs.org/react-inner-image-zoom/-/react-inner-image-zoom-3.0.2.tgz"
+  integrity sha512-ICjyz0wdKmLufuQkUyg4iyP0yIF2elDeHjY1+S1pOKPggrW0g9V2SCmOSA39405ZX8GVVaxadmUYWwz3OF4V5A==
+
 react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"

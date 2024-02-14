@@ -39,3 +39,34 @@
   margin: 0 8px;
   text-align: center;
 }
+
+/* single product page */
+.singleProduct__left figure {
+  padding: 10px;
+}
+.custom-zoom-container-fluid {
+  position: relative;
+}
+
+.custom-zoom-container-fluid .zoom-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-width: 100%;
+  height: auto;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.custom-zoom-container-fluid:hover .zoom-image {
+  opacity: 1;
+  transform: scale(1);
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  -o-transform: scale(1);
+}

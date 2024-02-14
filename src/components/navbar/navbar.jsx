@@ -2,9 +2,12 @@ import { Link, useLocation } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 export default function Navbar() {
   const location = useLocation();
+
+  const cartProduct = useSelector((state) => state.cart) || [];
 
   // FUNCTION TO DETERMINE IF A LINK SHOULD BE ACTIVE
   const isLinkActive = (linkPath) => {
@@ -89,7 +92,7 @@ export default function Navbar() {
             <div className="main-nav__badge flex justify-center items-end relative">
               <ShoppingCartIcon className={` md:!text-3xl !text-2xl py-1`} />
               <span className="main-nav__number main-nav__wish-number text-xs absolute top-[-5px] right-[-4px] font-medium">
-                5{/* {cartProduct.length} */}
+                {cartProduct.length}
               </span>
             </div>
           </Link>
