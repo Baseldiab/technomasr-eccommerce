@@ -1,4 +1,3 @@
-/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
 import { useContext } from "react";
 import { useState } from "react";

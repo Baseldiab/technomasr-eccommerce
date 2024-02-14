@@ -6,26 +6,51 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../store/cart/cart.store";
 import { addToWish } from "../../store/wish/wish.store";
+import Swal from "sweetalert2";
 export default function MainCard(props) {
   const dispatch = useDispatch();
   //   const auth = useAuth();
 
-  //   const handleAddToWish = () => {
-  //     if (auth.user.length) {
-  //       dispatch(addToWish(props));
-  //     } else {
-  //       Swal.fire({
-  //         title: "<strong>SIGN IN TO SYNC YOUR SAVED ITEMS ACROSS ALL YOUR DEVICES</strong>",
-  //         icon: "warning",
-  //         showCloseButton: true,
-  //         showCancelButton: true,
-  //         focusConfirm: false,
-  //         confirmButtonText: "<a class= 'text-light' href='/login' >SIGN IN</a>",
-  //         confirmButtonAriaLabel: "Thumbs up, great!",
-  //         cancelButtonText: "CONTINUE SHOPPING",
-  //         cancelButtonAriaLabel: "Thumbs down",
-  //       });
-  //     }
+  const handleAddToWish = () => {
+    //     const succesLogin = () => {
+    dispatch(addToWish(props));
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+      },
+    });
+
+    Toast.fire({
+      icon: "success",
+      title: "successfully Add To Wishlist",
+    });
+  };
+  const handleAddToCart = () => {
+    //     const succesLogin = () => {
+    dispatch(addToCart(props));
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+      },
+    });
+
+    Toast.fire({
+      icon: "success",
+      title: "successfully Add To Cart",
+    });
+  };
   //   };
 
   return (
@@ -56,7 +81,7 @@ export default function MainCard(props) {
       <Button
         variant="contained"
         className={"!absolute top-5 right-5 !bg-white !text-black !p-2 !rounded-xl !min-w-[50px]"}
-        onClick={() => dispatch(addToWish(props))}
+        onClick={handleAddToWish}
       >
         <FavoriteBorderIcon />
       </Button>
@@ -73,7 +98,7 @@ export default function MainCard(props) {
           <Button
             variant="contained"
             className={" !bg-secondary !text-white !p-2 !rounded-xl !min-w-[50px] "}
-            onClick={() => dispatch(addToCart(props))}
+            onClick={handleAddToCart}
           >
             <AddShoppingCartIcon />
           </Button>

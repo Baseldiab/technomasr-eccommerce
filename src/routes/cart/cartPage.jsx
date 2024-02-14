@@ -50,23 +50,11 @@ export default function CartPage() {
                   className=" border border-gray-400 rounded-md !min-w-[300px] bg-white grid grid-cols-3 justify-between mb-4"
                 >
                   <CartCard
+                    id={item.id}
                     image={item.image}
                     title={item.title}
                     price={`${Number(item.price).toFixed(2)} $`}
                     quantityInput={
-                      // <QuantityInput
-                      //   defaultValue={Number(item.quantity)}
-                      //   onChange={(event) => {
-                      //     console.log(event.target.value);
-                      //     dispatch(
-                      //       onChangeQuantity({
-                      //         productId: item.id,
-                      //         qty: event.target.value,
-                      //       })
-                      //     );
-                      //   }}
-                      // />
-                      // <NumberInput aria-label="Quantity Input" min={1} max={99} />;
                       <div className="quantity-input">
                         <input
                           className="quantity-field !min-w-[20px] !p-0"

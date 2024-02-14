@@ -10,6 +10,9 @@ import { Provider } from "react-redux";
 import { store } from "./store/store";
 import ProductPage from "./routes/products/productPage";
 import ProductDetailsPage from "./routes/products/productDetails/product.detailsPage";
+import LoginPage from "./routes/login/loginPage";
+import { ContextProvider } from "./Auth";
+import RequireAuth from "./RequireAuth";
 
 const router = createBrowserRouter([
   {
@@ -20,10 +23,7 @@ const router = createBrowserRouter([
         index: true,
         element: <HomePage />,
       },
-      // {
-      //   path: "/products",
-      //   element: <ProductPage />,
-      // },
+
       {
         path: "/products",
         element: (
@@ -46,38 +46,21 @@ const router = createBrowserRouter([
 
       {
         path: "/cart",
-        element: <CartPage />,
+        element: (
+          <RequireAuth>
+            <CartPage />,
+          </RequireAuth>
+        ),
       },
       {
         path: "/wish",
         element: <WishPage />,
       },
 
-      // {
-      //   path: "login",
-      //   element: (
-      //     <RequireLogin>
-      //       <Login />,
-      //     </RequireLogin>
-      //   ),
-      // },
-      // {
-      //   path: "register",
-
-      //   element: (
-      //     <RequireLogin>
-      //       <Register />
-      //     </RequireLogin>
-      //   ),
-      // },
-      // {
-      //   path: "profile",
-      //   element: (
-      //     <RequireAuth>
-      //       <Profile />
-      //     </RequireAuth>
-      //   ),
-      // },
+      {
+        path: "/login",
+        element: <LoginPage />,
+      },
     ],
   },
 ]);
@@ -87,9 +70,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      {/* <ContextProvider> */}
-      <RouterProvider router={router} />
-      {/* </ContextProvider> */}
+      <ContextProvider>
+        <RouterProvider router={router} />
+      </ContextProvider>
     </Provider>
   </React.StrictMode>
 );

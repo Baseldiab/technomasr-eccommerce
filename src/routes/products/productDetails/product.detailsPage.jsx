@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import Loading from "../../../components/loading";
 import { Breadcrumbs, Typography } from "@mui/material";
-import InnerImageZoom from "react-inner-image-zoom";
 import XIcon from "@mui/icons-material/X";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";

@@ -2,8 +2,11 @@
 import { Link } from "react-router-dom";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Button } from "@mui/material";
+import { deleteCartItem } from "../../../store/cart/cart.store";
+import { useDispatch } from "react-redux";
 
 export default function CartCard(props) {
+  const dispatch = useDispatch();
   return (
     <>
       <div
@@ -33,6 +36,7 @@ export default function CartCard(props) {
             <Button
               variant={"outlined"}
               className=" bg-primary hover:bg-sky-700 !min-w-[20px] !p-0  rounded-md "
+              onClick={() => dispatch(deleteCartItem(props.id))}
             >
               <DeleteIcon />
             </Button>
