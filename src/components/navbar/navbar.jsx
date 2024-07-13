@@ -10,6 +10,7 @@ export default function Navbar() {
   const auth = useAuth();
 
   const cartProduct = useSelector((state) => state.cart) || [];
+  const wishProduct = useSelector((state) => state.wish) || [];
 
   // FUNCTION TO DETERMINE IF A LINK SHOULD BE ACTIVE
   const isLinkActive = (linkPath) => {
@@ -85,7 +86,8 @@ export default function Navbar() {
               <FavoriteIcon className={` md:!text-3xl !text-2xl  py-1`} />
               {auth.user.length !== 0 && (
                 <span className="main-nav__number main-nav__wish-number absolute text-xs top-[-5px] right-[-4px] font-medium">
-                  {/* {auth.user.length ? wishProduct.length : 0} */}0
+                  {/* {auth.user.length ? wishProduct.length : 0} */}
+                  {wishProduct.length}
                 </span>
               )}
             </div>

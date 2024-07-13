@@ -1,20 +1,21 @@
 /* eslint-disable no-unused-vars */
 import PageTitle from "../../components/title/page.title";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteCartItem, onChangeQuantity } from "../../store/cart/cart.store";
+import {  onChangeQuantity, resetCartItem } from "../../store/cart/cart.store";
 import SecondaryButton from "../../components/buttons/secondaryButton";
 import OrderSummery from "./components/order.summery";
 import { useEffect, useState } from "react";
 import CartCard from "./components/cart.card";
-import QuantityInput from "../../components/inputs/quantity.input";
 import CartEmpty from "./components/cart.empty";
 import CartLocation from "./components/cart.location";
 import CartOrder from "./components/cart.order";
 import { useAuth } from "../../Auth";
+import { useNavigate } from "react-router-dom";
 
 export default function CartPage() {
   const dispatch = useDispatch();
   const auth = useAuth();
+  const navigate = useNavigate();
   const products = useSelector((state) => state.cart) || [];
 
   const initialChecked = localStorage.getItem("isCheckedOut") || false;
@@ -35,10 +36,6 @@ export default function CartPage() {
     set_is_checked(true);
   };
 
-  const handleDeleteItem = (itemId) => {
-    dispatch(deleteCartItem(itemId));
-  };
-
   useEffect(() => {
     localStorage.setItem("isCheckedOut", isCheck);
   }, [isCheck]);
@@ -47,7 +44,34 @@ export default function CartPage() {
     localStorage.setItem("isConfirmed", isConfirm);
   }, [isConfirm]);
 
-  console.log(isCheck, isCheck, auth.user.length !== 0);
+  // console.log(isCheck, isCheck, auth.user.length !== 0);
+
+  useEffect(() => {
+    if (auth.user.length !== 0 && isConfirm && isCheck) {
+    
+      const timer = setTimeout(() => {
+        set_is_checked(false)
+      localStorage.removeItem("isCheckedOut")
+      set_is_Confirm(false)
+      localStorage.removeItem("isConfirmed")
+      dispatch(resetCartItem());
+      navigateHome();
+        
+      // setCount((prevCount) => prevCount + 1);
+    }, 3000);
+    
+    // Cleanup function to clear the timeout
+    return () => clearTimeout(timer);
+  }
+  }, [isConfirm, isCheck, auth.user.length]);
+
+  const redirectPath = location.state?.path || "/";
+
+  const navigateHome = () => {
+    if (auth.user.length !== 0 && isConfirm && isCheck) {
+      navigate(redirectPath, { replace: true });
+    } else navigate(redirectPath, { replace: true });
+  };
 
   return (
     <>

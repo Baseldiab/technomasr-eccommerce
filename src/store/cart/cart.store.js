@@ -34,9 +34,16 @@ const cartSlice = createSlice({
       localStorage.setItem("cart", JSON.stringify(updatedState));
       return updatedState;
     },
+    resetCartItem: (state) => {
+      // const productId = action.payload;
+      // console.log("basel")
+      // console.log(state)
+      state.splice(0, state.length);
+      localStorage.removeItem("cart")
+    },
   },
 });
 
-export const { addToCart, deleteCartItem, onChangeQuantity } = cartSlice.actions;
+export const { addToCart, deleteCartItem, onChangeQuantity , resetCartItem} = cartSlice.actions;
 
 export const cartReducer = cartSlice.reducer;

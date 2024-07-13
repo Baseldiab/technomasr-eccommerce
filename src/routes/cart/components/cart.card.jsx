@@ -4,9 +4,33 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { Button } from "@mui/material";
 import { deleteCartItem } from "../../../store/cart/cart.store";
 import { useDispatch } from "react-redux";
+import Swal from "sweetalert2";
 
 export default function CartCard(props) {
   const dispatch = useDispatch();
+
+  const handleDeleteItem = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteCartItem(props.id));
+
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success"
+        });
+      }
+    });
+  };
+
   return (
     <>
       <div
@@ -36,7 +60,7 @@ export default function CartCard(props) {
             <Button
               variant={"outlined"}
               className=" bg-primary hover:bg-sky-700 !min-w-[20px] !p-0  rounded-md "
-              onClick={() => dispatch(deleteCartItem(props.id))}
+              onClick={handleDeleteItem}
             >
               <DeleteIcon />
             </Button>

@@ -18,7 +18,7 @@ const wishSlice = createSlice({
         localStorage.setItem("wishlist", JSON.stringify(state));
       }
     },
-    deleteItem: (state, action) => {
+    deleteWishItem: (state, action) => {
       const productId = action.payload;
       const updatedState = state.filter((item) => item.id !== productId);
       localStorage.setItem("wishlist", JSON.stringify(updatedState));
@@ -27,6 +27,6 @@ const wishSlice = createSlice({
   },
 });
 
-export const { addToWish, deleteItem } = wishSlice.actions;
+export const { addToWish, deleteWishItem } = wishSlice.actions;
 
 export const wishReducer = wishSlice.reducer;

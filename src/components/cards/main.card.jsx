@@ -1,13 +1,16 @@
 /* eslint-disable react/prop-types */
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { Box, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../store/cart/cart.store";
-import { addToWish } from "../../store/wish/wish.store";
+import { addToWish, deleteWishItem } from "../../store/wish/wish.store";
 import Swal from "sweetalert2";
 import { useAuth } from "../../Auth";
+
+
 export default function MainCard(props) {
   const dispatch = useDispatch();
   const auth = useAuth();
@@ -74,6 +77,29 @@ export default function MainCard(props) {
     }
   };
 
+  const handleDeleteItem = () => {
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+    dispatch(deleteWishItem(props.id));
+
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success"
+        });
+      }
+    });
+  };
+
   //   };
 
   return (
@@ -108,7 +134,7 @@ export default function MainCard(props) {
       >
         <FavoriteBorderIcon />
       </Button>
-      <div className="card_content min-h-[160px]">
+      <div className="card_content min-h-[175px]">
         <div className="card_body text-start px-5 py-2 mx-auto">
           <Link className="text-light" to={`/products/productId=${props.id}`}>
             <h5 className="card_title text-base font-medium">{props.title}</h5>
@@ -117,7 +143,7 @@ export default function MainCard(props) {
             {props.price.toFixed(2)}$
           </h6>
         </div>
-        <div className="card_footer flex justify-end  mx-auto absolute bottom-0 right-0 px-5 pb-4">
+        <div className={`card_footer flex mt-2  mx-auto absolute bottom-0 w-full px-5 pb-4 ${props.isWishPage ? "justify-between" : "justify-end" }`}>
           <Button
             variant="contained"
             className={" !bg-secondary !text-white !p-2 !rounded-xl !min-w-[50px] "}
@@ -125,6 +151,15 @@ export default function MainCard(props) {
           >
             <AddShoppingCartIcon />
           </Button>
+
+          {props.isWishPage &&
+            <Button
+            variant="contained"
+            className={" !bg-red-700 !text-white !p-2 !rounded-xl !min-w-[50px] "}
+            onClick={handleDeleteItem}
+          >
+            <DeleteForeverIcon />
+          </Button>}
         </div>
       </div>
     </Box>
